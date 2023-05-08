@@ -1,6 +1,6 @@
 @extends('layouts.basic')
 
-@section('title', 'Register')
+@section('title', 'Login')
 
 @section('content')
     <main class="form-signin w-50 m-auto mt-3">

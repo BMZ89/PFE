@@ -11,8 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('days_offs', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->longText('adress');
+            $table->string('activity');
+            $table->string('contact');
+            
+            $table->boolean("is_validated")->default(false);
+            $table->foreignId("user_id")->constrained();
             $table->timestamps();
         });
     }
@@ -22,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('days_offs');
+        Schema::dropIfExists('customers');
     }
 };

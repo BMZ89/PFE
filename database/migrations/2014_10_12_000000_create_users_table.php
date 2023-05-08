@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('incrementation')->nullable();
         });
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('adresse');

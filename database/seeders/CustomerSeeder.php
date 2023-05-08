@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Post;
+use App\Models\Customer;
 
-class DaysOffSeeder extends Seeder
+class CustomerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,5 +15,6 @@ class DaysOffSeeder extends Seeder
     public function run(): void
     {
         //
+        Customer::factory(20)->create();
     }
 }
