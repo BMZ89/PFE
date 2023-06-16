@@ -17,7 +17,6 @@ return new class extends Migration
             $table->longText('adress');
             $table->string('activity');
             $table->string('contact');
-            
             $table->boolean("is_validated")->default(false);
             $table->foreignId("user_id")->constrained();
             $table->timestamps();
