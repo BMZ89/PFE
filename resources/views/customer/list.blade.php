@@ -56,7 +56,19 @@
                                                     <td scope="row">{{ $customer->user_id }}</td>
                                                     <td scope="row">{{ $customer->created_at }}</td>
                                                     </td>
-
+                                                    <td scope="row">
+                                                        <div class="input-group">
+                                                            <a class="btn btn-sm btn-primary"
+                                                                href="{{ route('customer.edit', ['customer' => $customer->id]) }}"
+                                                                title="Edit" role="button">
+                                                                <i class="bi bi-pencil"></i>
+                                                            </a>
+                                                            {{-- <a class="btn btn-sm btn-secondary"
+                                                                href="{{ route('customer.show', ['customer' => $customer->id]) }}"
+                                                                title="Details" role="button">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a> --}}
+                                                        </div>
                                                 </tr>
                                             @endforeach
 

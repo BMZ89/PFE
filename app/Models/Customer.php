@@ -13,7 +13,7 @@ class Customer extends Model
         'adress',
         'contact',
         'activity',
-        'client code',
+        'user_id',
         'is_validated',
     ];
 }

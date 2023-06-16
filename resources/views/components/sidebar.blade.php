@@ -6,7 +6,7 @@
     <div class="dropdown-menu dropdown-menu-right">
 
         <div>
-            <x-navitem routeName="users.index" title="users List" />
+            <x-navitem routeName="users.index" title="users " />
 
             <x-navitem routeName="logout" title="Logout" />
         </div>

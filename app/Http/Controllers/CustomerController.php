@@ -33,29 +33,29 @@ class CustomerController extends Controller
     public function create(): View
     {
         return view('customer.create');
+        
     }
     
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request):RedirectResponse
+    public function store(Request $request)
     {
-        
-    
-
+       
         $validated = $request->validate([
             'name' => 'required|unique:customers',
             'adress' => 'required|max:255',
             'contact' => 'required',
-            'activity' => 'required|max:25',
-            'user id' =>'required',
-        ]);
-       
- 
-        return redirect('/customers');
-        return to_route('customer.show', ['customer' => $customer->id]);
-        
+            'activity' => 'required|max:25',]);
+        $validated["user_id"] = Auth::user()->id;
+        $customer = Customer::create($validated);
+        // if ( auth()->user()->role == 'employee') 
+        if (isset($customer)) {
+            
+            return redirect()->route('customer.index')->with('success', 'Customer created successfully');
+        }
+        return redirect()->back()->with('error', 'Error  Creation')->withInput();
     }
 
     /**
@@ -72,6 +72,8 @@ class CustomerController extends Controller
     public function edit(string $id)
     {
         //
+        $customer = Customer::find($id);
+        return view('customer.edit', ['customer' => $customer]);
     }
 
     /**
@@ -80,6 +82,30 @@ class CustomerController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $customer = Customer::find($id);
+        $data = $request->validate([
+            'name' => 'required|string|max:100',
+        ]);
+
+        $customer->name = $request->name;
+        
+        $customer->is_validated = $request->input('is_validated')  !== null ? true : false;
+        // dd($request->input('is_validated'));
+    //    dd($customer->is_validated);
+    //    dd($customer->id);
+        if ($customer->is_validated) {
+            $customer->updated_at = now();
+        } else {
+            $customer->updated_at = null;
+        }
+
+        $customer->user_id = Auth::user()->id;
+        // dd($customer);
+        // Customer::update($customer);
+        
+        $customer->save();
+        return redirect()->route('customer.index')->with('success','customer updated');
+       
     }
 
     /**

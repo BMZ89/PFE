@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Customer;
+use App\Models\Leave;
 
-class CustomerSeeder extends Seeder
+class LeaveSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class CustomerSeeder extends Seeder
     public function run(): void
     {
         //
-        Customer::factory(20)->create();
+        Leave::factory(20)->create();
     }
 }

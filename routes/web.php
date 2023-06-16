@@ -5,6 +5,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\VacationController;
+use App\Http\Controllers\LeaveController;
 
 
 
@@ -14,19 +18,31 @@ Route::get('/register', [AuthController::class, 'registerview'])->name("view.reg
 Route::post('/register', [AuthController::class, 'register'])->name("register");
 Route::post('/login', [AuthController::class, 'login'])->name("login");
 
- //display form for employee to create new request
-// Route::get('/customer/create', [CustomerController::class, 'create'])->name("view.create"); 
-//store new request in database.
-// Route::post('/customer', [CustomerController::class, 'store'])->name("createcustomer"); 
 
 Route::resource("customer", CustomerController::class);
+Route::resource('vacation', VacationController::class);
+Route::resource('leave', LeaveController::class);
+
 
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name("logout");
 });
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'admin' ])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name("view.admin.home");
     Route::resource("users", UserController::class);
+    
+});
+Route::middleware(['auth', 'employee'])->group(function(){ 
+    Route::get('/employee', [EmployeeController::class, 'index'])->name("view.employee.home");
+    Route::resource("customer", CustomerController::class);
+    Route::resource('leave', LeaveController::class);
+});
+
+Route::middleware(['auth', 'manager'])->group(function(){ 
+    Route::get('/manager', [ManagerController::class, 'index'])->name("view.manager.home");
+    Route::resource("customer", CustomerController::class);
+    // Route::put('customer',[CustomerController::class,'update'])->name('customer.update');
+    // Route::resource('vacation', VacationController::class);
     
 });

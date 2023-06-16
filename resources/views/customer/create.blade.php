@@ -1,11 +1,6 @@
 @extends('layouts.basic')
 @section('title', 'Create Customer')
 @section('content')
-    {{-- <h1 class="text-success text-center mt-5">Create Customer</h1> --}}
-
-
-
-
     <section class=" bg-image"
         style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -21,39 +16,35 @@
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example1cg">Name</label>
-                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                                        <input name="name" type="text" id="form3Example1cg"
+                                            class="form-control form-control-lg" />
 
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example3cg">Adress</label>
-                                        <input type="adress" id="form3Example3cg" class="form-control form-control-lg" />
+                                        <input type="adress" name="adress" id="form3Example3cg"
+                                            class="form-control form-control-lg" />
 
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example4cg">Activity</label>
-                                        <input type="activity" id="form3Example4cg" class="form-control form-control-lg" />
+                                        <input type="activity" name="activity" id="form3Example4cg"
+                                            class="form-control form-control-lg" />
 
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example4cdg">Contact</label>
-                                        <input type="contact" id="form3Example4cdg" class="form-control form-control-lg" />
+                                        <input type="contact" name="contact" id="form3Example4cdg"
+                                            class="form-control form-control-lg" />
 
                                     </div>
 
 
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example4cdg">User Id</label>
-                                        <input type="contact" id="form3Example4cdg" class="form-control form-control-lg" />
 
-                                    </div>
-                                    {{-- <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example4cdg">Created at</label>
-                                        <input type="contact" id="form3Example4cdg" class="form-control form-control-lg" />
 
-                                    </div> --}}
                                     <hr>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example4cdg">Validation</label>

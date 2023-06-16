@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Vacation;
+use App\Models\Leave;
 
 class User extends Authenticatable
 {
@@ -21,7 +23,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+
+   
     ];
+    public function vacation()
+    {
+        return $this->hasMany(Vacation::class);
+    }
+    public function leaveRequest()
+    {
+        return $this->hasMany(Leave::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
