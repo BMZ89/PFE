@@ -52,7 +52,12 @@ class AuthController extends Controller
             if (Auth::user()->role == "Admin") {
                 return redirect()->route('view.home');
             }
-            
+            if (Auth::user()->role == "Manager") {
+                return redirect()->route('view.manager.home');
+            }
+            if (Auth::user()->role == "Employee") {
+                return redirect()->route('view.employee.home');
+            }
             return redirect()->route('view.home');
         }
 

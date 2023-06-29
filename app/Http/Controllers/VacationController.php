@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vacation;
+use App\Models\Leave;
 use App\Http\Requests\StoreVacationRequest;
 use Illuminate\View\View;
 use App\Http\Requests\UpdateVacationRequest;
@@ -46,18 +47,7 @@ class VacationController extends Controller
     {
         //
         
-        $validated = $request->validate([
-            
-            'request period' => 'required|date',]);
-        $validated["user_id"] = Auth::user()->id;
-        $validated["user_id"] = Auth::user()->name;
-        $validated["user_id"] = Auth::user()->email;
-        $customer = Vacation::create($validated);
-        if (isset($vacation)) {
-            
-            return redirect()->route('vacation.index')->with('success', 'Leave request created successfully');
-        }
-        return redirect()->back()->with('error', 'Error  Creation')->withInput();
+        
     }
     
 
@@ -82,10 +72,27 @@ class VacationController extends Controller
      */
     public function update(UpdateVacationRequest $request, Vacation $vacation)
     {
-        // update la variable balance 
-        //$variable -> update($request->all());
-        //$variable -> save()
-         // récupérer ID puis récupere ligne de vacation dans la table vacation on accède l'ancienne balance 
+        $vacation = Vacation::find($id);
+
+        if (!$vacation) {
+            return redirect()->route('leave.index')->with('error', 'Vacation record not found');
+        }
+    
+        $leave = Leave::where('user_id', $vacation->user_id)->first();
+    
+        if (!$leave) {
+            return redirect()->route('leave.index')->with('error', 'Leave record not found');
+        }
+    
+        $requestedDays = $leave->requested_days;
+        $oldBalance = $vacation->balance;
+    
+        $newBalance = $oldBalance - $requestedDays + $increment;
+        $vacation->balance = $newBalance;
+        $vacation->save();
+    
+        return redirect()->route('leave.index')->with('success', 'Balance updated');
+
 
     }
 

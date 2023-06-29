@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row gy-4">
             <div class="col-sm">
-                <a href="{{ route('customer.create') }}">
+                <a href="{{ route('customer.index') }}">
                     <div class="card h-100" "> <img src="https://media.licdn.com/dms/image/C5612AQEXTt4grfiTxQ/article-cover_image-shrink_720_1280/0/1520181045312?e=2147483647&v=beta&t=Z6g_nFW524kw9hTrqMfS9CshPF4-VV4OffMyJmROOCI"
                                                                                                         class="card-img-top" alt="Customers photo"></a>
                                                                                                     <div class="card-body">

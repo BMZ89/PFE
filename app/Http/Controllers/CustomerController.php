@@ -50,7 +50,7 @@ class CustomerController extends Controller
             'activity' => 'required|max:25',]);
         $validated["user_id"] = Auth::user()->id;
         $customer = Customer::create($validated);
-        // if ( auth()->user()->role == 'employee') 
+        if ( auth()->user()->role == 'employee') 
         if (isset($customer)) {
             
             return redirect()->route('customer.index')->with('success', 'Customer created successfully');
@@ -82,6 +82,7 @@ class CustomerController extends Controller
     public function update(Request $request, string $id)
     {
         //
+       // if ( auth()->user()->role == 'manager') 
         $customer = Customer::find($id);
         $data = $request->validate([
             'name' => 'required|string|max:100',

@@ -3,15 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Leave;
+use App\Models\User;
+use App\Models\Vacation;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreLeaveRequest;
 use App\Http\Requests\UpdateLeaveRequest;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+
 
 class LeaveController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+
+   
+
     public function index()
     {
         //
@@ -43,23 +51,19 @@ class LeaveController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLeaveRequest $request)
+    public function store(Request $request)
     {
-        //
-        $validated = $request->validate([
-            
-            'start_date' => 'required|date_format:d/m/Y',
-             'end_date' => 'required|date_format:d/m/Y'],
-            'requested_days => ');
-        $validated["user_id"] = Auth::user()->id;
-        $validated["user_id"] = Auth::user()->name;
-        $validated["user_id"] = Auth::user()->email;
-        $leave = Leave::create($validated);
+        $data = $request->validate([
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
+        $data["user_id"] = Auth::user()->id;
+        
+        $leave = Leave::create($data);
         if (isset($leave)) {
-            
-            return redirect()->route('leave.index')->with('success', 'Leave request created successfully');
+            return redirect()->route('leave.index')->with('success', 'Request created successfully');
         }
-        return redirect()->back()->with('error', 'Error  Creation')->withInput();
+        return redirect()->back()->with('error', '')->withInput();
     }
 
     /**
@@ -73,17 +77,60 @@ class LeaveController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Leave $leave)
+    public function edit(string $id)
     {
         //
+        $leave = Leave::find($id);
+        return view('leave.edit', ['leave' => $leave]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLeaveRequest $request, Leave $leave)
+    public function update(Request $request, string $id)
     {
         //
+        $leave = Leave::find($id);
+        $vacation = $leave->leaveRequest;
+
+        // $leave->id = $request->id;
+
+        if ($vacation) {
+            $balance = $vacation->balance;
+            
+            if ($leave->requested_days < $balance) {
+                $leave->is_validated = $request->input('is_validated') !== null ? true : false;
+                
+                if ($leave->is_validated) {
+                    $leave->updated_at = now();
+                } else {
+                    $leave->updated_at = null;
+                }
+                
+                $leave->save();
+                return redirect()->route('leave.index')->with('success', 'Updated');
+            } else {
+                return redirect()->route('leave.index')->with('error', 'Insufficient balance for requested days');
+            }
+        } else {
+            return redirect()->route('leave.index')->with('error', 'No vacation record found');
+        }
+        
+        
+        // $leave->requested_days = $request->input('requested_days');
+
+        // if($leave->requested_days < $balance) {
+        //     $leave->is_validated = $request->input('is_validated')  !== null ? true : false;
+
+        //     if ($leave->is_validated) {
+        //     $leave->updated_at = now();
+        //     } else {
+        //         $leave->updated_at = null;
+        //     }
+        // }
+        
+        // $leave->save();
+        // return redirect()->route('leave.index')->with('success',' updated');
     }
 
     /**
@@ -93,4 +140,4 @@ class LeaveController extends Controller
     {
         //
     }
-}
+    }

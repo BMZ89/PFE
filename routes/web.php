@@ -35,13 +35,16 @@ Route::middleware(['auth', 'admin' ])->group(function () {
 });
 Route::middleware(['auth', 'employee'])->group(function(){ 
     Route::get('/employee', [EmployeeController::class, 'index'])->name("view.employee.home");
-    Route::resource("customer", CustomerController::class);
-    Route::resource('leave', LeaveController::class);
+    Route::post('/customer/create',[CustomerController::class, 'store'])->name("customer.store");
+    Route::get('/customer',[CustomerController::class, 'index'])->name("customer.index");
+    // Route::resource("customer", CustomerController::class);
+    
 });
 
 Route::middleware(['auth', 'manager'])->group(function(){ 
     Route::get('/manager', [ManagerController::class, 'index'])->name("view.manager.home");
-    Route::resource("customer", CustomerController::class);
+    Route::get('/customer',[CustomerController::class, 'index'])->name("customer.index");
+    // Route::resource("customer", CustomerController::class);
     // Route::put('customer',[CustomerController::class,'update'])->name('customer.update');
     // Route::resource('vacation', VacationController::class);
     
