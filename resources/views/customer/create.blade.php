@@ -42,44 +42,7 @@
 
                                     </div>
 
-
-
-
                                     <hr>
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example4cdg">Validation</label>
-                                        {{-- toggle  --}}
-                                        <div class="dropdown mb-4">
-                                            <button class="btn btn-primary dropdown-toggle" type="button"
-                                                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Manager's validation
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="Checkme1" />
-                                                            <label class="form-check-label" for="Checkme1">Yes</label>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="Checkme2" checked />
-                                                            <label class="form-check-label" for="Checkme2">No</label>
-                                                        </div>
-                                                    </a>
-                                                </li>
-
-
-                                            </ul>
-                                        </div>
-
-
-                                    </div>
 
                                     <div class="d-flex justify-content-center">
                                         <button type="submit"
