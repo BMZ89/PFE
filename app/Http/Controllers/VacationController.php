@@ -70,24 +70,24 @@ class VacationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVacationRequest $request, Vacation $vacation)
+    public function update(Request $request, string $id)
     {
         $vacation = Vacation::find($id);
 
         if (!$vacation) {
-            return redirect()->route('leave.index')->with('error', 'Vacation record not found');
+            return redirect()->route('vacation.index')->with('error', 'Vacation record not found');
         }
     
         $leave = Leave::where('user_id', $vacation->user_id)->first();
     
         if (!$leave) {
-            return redirect()->route('leave.index')->with('error', 'Leave record not found');
+            return redirect()->route('vacation.index')->with('error', 'Leave record not found');
         }
     
         $requestedDays = $leave->requested_days;
         $oldBalance = $vacation->balance;
     
-        $newBalance = $oldBalance - $requestedDays + $increment;
+        $newBalance = $oldBalance - $requestedDays;
         $vacation->balance = $newBalance;
         $vacation->save();
     

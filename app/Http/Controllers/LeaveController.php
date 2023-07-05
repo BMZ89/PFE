@@ -92,6 +92,8 @@ class LeaveController extends Controller
         //
         $leave = Leave::find($id);
         $vacation = $leave->leaveRequest;
+        // dd($leave);
+
 
         // $leave->id = $request->id;
 

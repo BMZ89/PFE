@@ -21,7 +21,7 @@ Route::post('/login', [AuthController::class, 'login'])->name("login");
 
 Route::resource("customer", CustomerController::class);
 Route::resource('vacation', VacationController::class);
-Route::resource('leave', LeaveController::class);
+// Route::resource('leave', LeaveController::class);
 
 
 
@@ -44,6 +44,7 @@ Route::middleware(['auth', 'employee'])->group(function(){
 Route::middleware(['auth', 'manager'])->group(function(){ 
     Route::get('/manager', [ManagerController::class, 'index'])->name("view.manager.home");
     Route::get('/customer',[CustomerController::class, 'index'])->name("customer.index");
+     Route::resource("leave", LeaveController::class);
     // Route::resource("customer", CustomerController::class);
     // Route::put('customer',[CustomerController::class,'update'])->name('customer.update');
     // Route::resource('vacation', VacationController::class);
