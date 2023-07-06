@@ -92,10 +92,9 @@ class LeaveController extends Controller
         //
         $leave = Leave::find($id);
         $vacation = $leave->leaveRequest;
-        // dd($leave);
 
-
-        // $leave->id = $request->id;
+       
+       
 
         if ($vacation) {
             $balance = $vacation->balance;
@@ -110,6 +109,12 @@ class LeaveController extends Controller
                 }
                 
                 $leave->save();
+                $requestedDays = $leave->requested_days;
+                $oldBalance = $vacation->balance;
+            
+                $newBalance = $oldBalance - $requestedDays;
+                $vacation->balance = $newBalance;
+                $vacation->save();
                 return redirect()->route('leave.index')->with('success', 'Updated');
             } else {
                 return redirect()->route('leave.index')->with('error', 'Insufficient balance for requested days');
@@ -119,20 +124,6 @@ class LeaveController extends Controller
         }
         
         
-        // $leave->requested_days = $request->input('requested_days');
-
-        // if($leave->requested_days < $balance) {
-        //     $leave->is_validated = $request->input('is_validated')  !== null ? true : false;
-
-        //     if ($leave->is_validated) {
-        //     $leave->updated_at = now();
-        //     } else {
-        //         $leave->updated_at = null;
-        //     }
-        // }
-        
-        // $leave->save();
-        // return redirect()->route('leave.index')->with('success',' updated');
     }
 
     /**
